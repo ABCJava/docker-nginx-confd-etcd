@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y curl nano && \
     rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.7.1/confd-0.7.1-linux-amd64 -o /usr/local/bin/confd
+RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 -o /usr/local/bin/confd
 RUN chmod +x /usr/local/bin/confd
 
 run mkdir -p /etc/confd/templates
