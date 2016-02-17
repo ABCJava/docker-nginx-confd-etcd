@@ -1,24 +1,23 @@
-{{ range gets "/services/<%service%>/*" }}
-    {{ $config := split (.Key) ":" }}
-    {{ $url := split (index $config 1) "." }}
-
-upstream {{ index $config 1 }} {
-  server {{ .Value }};
-}
-
 server {
     listen 80;
-    server_name {{ index $url 1 }}.{{ index $url 2 }};
-
+    server_name abc.ordina.nl;
     access_log /var/log/nginx/access.log upstreamlog;
 
-    location / {
-        proxy_pass http://{{ index $config 1 }};
+{{ range $dir := lsdir "/services/<%service%>" }}
+{{ $serviceDir := printf "/services/<%service%>/%s/*" $dir }}
+{{ range gets $serviceDir }}
+{{ if contains (.Key) "#" }}
+{{ $service := split ($dir) "#" }}
+{{ $config := split (.Key) ":" }}
+{{ $url := split (index $config 1) "." }}
+
+    location /{{ index $service 0}}-{{ index $service 1}} {
+        proxy_pass http://{{ .Value }};
         proxy_redirect off;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
-}
 
-{{ end }}
+{{ end }}{{ end }}{{ end }}
+}
