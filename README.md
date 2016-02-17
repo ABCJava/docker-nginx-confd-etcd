@@ -10,7 +10,7 @@ This docker image made for CoreOs cluster. You need working Registrators on ever
 
 # How to use this image
 
-`docker run --name nginx.abc.ordina.nl -p 80:80 -e NGINX_BACKEND_SERVICE=abc.ordina.nl.com -e HOST_IP=127.0.0.1 -e ETCD_PORT=4001 abcjava/nginx-confd-etcd`
+`docker run --name nginx.abc.ordina.nl -p 80:80 -e NGINX_BACKEND_SERVICE=abc.ordina.nl -e HOST_IP=127.0.0.1 -e ETCD_PORT=4001 abcjava/nginx-confd-etcd`
 
 The following environment variables available:
 
