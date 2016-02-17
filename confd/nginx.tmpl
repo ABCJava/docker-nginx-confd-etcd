@@ -12,6 +12,7 @@ server {
 {{ $url := split (index $config 1) "." }}
 
     location /{{ index $service 0}}-{{ index $service 1}} {
+        rewrite /{{ index $service 0}}-{{ index $service 1}}(.*) /$1  break;
         proxy_pass http://{{ .Value }};
         proxy_redirect off;
         proxy_set_header Host $host;
