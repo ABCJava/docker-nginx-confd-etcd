@@ -8,7 +8,7 @@ export ETCD=$HOST_IP:$ETCD_PORT
 export NGINX_BACKEND_SERVICE=${NGINX_BACKEND_SERVICE:-apache}
 export NGINX_WORKER_PROCESSES=${NGINX_WORKER_PROCESSES:-$((`nproc`*2))}
 
-echo "[nginx] createing config for service: $NGINX_BACKEND_SERVICE"
+echo "[nginx] creating config for service: $NGINX_BACKEND_SERVICE"
 sed "s/<%service%>/$NGINX_BACKEND_SERVICE/g" /etc/confd/init/nginx.tmpl > /etc/confd/templates/nginx.tmpl
 sed "s/<%service%>/$NGINX_BACKEND_SERVICE/g" /etc/confd/init/nginx.toml > /etc/confd/conf.d/nginx.toml
 sed "s/<%worker_processes%>/$NGINX_WORKER_PROCESSES/g" /etc/nginx/nginx.conf.original > /etc/nginx/nginx.conf
